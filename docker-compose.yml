@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  flask:
+    build: ./ToDoListBack
+    container_name: flaskapp
+    restart: always
+    ports:
+      - 5000:5000
+    command: python app.py
+    networks:
+      - myNetwork
+  node:
+    build: ./todolistfront
+    container_name: reactapp
+    restart: always
+    ports:
+      - 3000:3000
+    command: npm start
+    networks:
+      - myNetwork
+networks:
+  myNetwork:
+    driver: bridge

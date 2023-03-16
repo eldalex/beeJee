@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Table} from "reactstrap";
+import {Input, Table} from "reactstrap";
 import AddToDo from "../appAddToDo/AddToDo";
 import {API_URL} from "../../index";
 import {useSelector, useDispatch} from "react-redux";
 import {reloadToDoList} from "../utils/utils";
 import {settodolist} from "../../actions";
+import ok from "../../img/ok.png"
+import notok from "../../img/notok.png"
+import logo from "../../img/logo.png";
 
 
 function ToDoList() {
 
 
-    const {todolist} = useSelector(state => state)
+    const {todolist,currentUser} = useSelector(state => state)
     const dispatch = useDispatch();
     const {encodedAuth} = useSelector(state => state)
     const toggleDone = (task) => {
@@ -67,8 +70,10 @@ function ToDoList() {
                     <th className="done">Выполнено <label onClick={sortBy} id='done'
                                                           className='filter'>&#9650;</label><label
                         onClick={sortByReverse} id='done' className='filter'>&#9660;</label></th>
-                    <th></th>
-                    <th></th>
+                    {currentUser==='admin' ?
+                        <th></th>:null}
+                    {currentUser==='admin' ?
+                        <th></th>:null}
                 </tr>
                 </thead>
                 <tbody>
@@ -85,14 +90,20 @@ function ToDoList() {
                             <td>{task.user_name}</td>
                             <td>{task.email}</td>
                             <td>{task.done === 'False' ? task.text : <strike> {task.text} </strike>}</td>
-                            <td onClick={() => toggleDone(task)}>{task.done}</td>
+                            <td onClick={() => toggleDone(task)}><img
+                                src={task.done === 'True' ? ok : notok}
+                                width="30"
+                                alt="ok"
+                            /></td>
+                            {currentUser==='admin' ?
                             <td>
                                 <AddToDo
                                     create={false}
                                     task={task}
                                     reloadToDoList={reloadToDoList}
                                 />
-                            </td>
+                            </td>:null}
+                            {currentUser==='admin' ?
                             <td>
                                 <AddToDo
                                     create={false}
@@ -100,7 +111,7 @@ function ToDoList() {
                                     task={task}
                                     reloadToDoList={reloadToDoList}
                                 />
-                            </td>
+                            </td>:null}
                         </tr>
                     ))
                 }

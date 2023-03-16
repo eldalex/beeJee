@@ -15,7 +15,12 @@ function ToDoList() {
     const dispatch = useDispatch();
     const {encodedAuth} = useSelector(state => state)
     const toggleDone = (task) => {
-        axios.put(API_URL + '/toggletodo', task, {headers: {'Content-Type': 'application/json', Authorization: `Basic ${encodedAuth}`}})
+        axios.put(API_URL + '/toggletodo', task, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Basic ${encodedAuth}`
+            }
+        })
             .then(() => {
                 reloadToDoList(dispatch)
             })
@@ -52,12 +57,15 @@ function ToDoList() {
                 <tr>
                     <th className="id">id <label onClick={sortBy} id='id' className='filter'>&#9650;</label><label
                         onClick={sortByReverse} id='id' className='filter'>&#9660;</label></th>
-                    <th className="user_name">Имя <label onClick={sortBy} id='user_name' className='filter'>&#9650;</label><label
+                    <th className="user_name">Имя <label onClick={sortBy} id='user_name'
+                                                         className='filter'>&#9650;</label><label
                         onClick={sortByReverse} id='user_name' className='filter'>&#9660;</label></th>
-                    <th className="email">email <label onClick={sortBy} id='email' className='filter'>&#9650;</label><label
+                    <th className="email">email <label onClick={sortBy} id='email'
+                                                       className='filter'>&#9650;</label><label
                         onClick={sortByReverse} id='email' className='filter'>&#9660;</label></th>
                     <th className="text">Текст</th>
-                    <th className="done">Выполнено <label onClick={sortBy} id='done' className='filter'>&#9650;</label><label
+                    <th className="done">Выполнено <label onClick={sortBy} id='done'
+                                                          className='filter'>&#9650;</label><label
                         onClick={sortByReverse} id='done' className='filter'>&#9660;</label></th>
                     <th></th>
                     <th></th>
@@ -76,7 +84,7 @@ function ToDoList() {
                             <td>{task.id}</td>
                             <td>{task.user_name}</td>
                             <td>{task.email}</td>
-                            <td>{task.text}</td>
+                            <td>{task.done === 'False' ? task.text : <strike> {task.text} </strike>}</td>
                             <td onClick={() => toggleDone(task)}>{task.done}</td>
                             <td>
                                 <AddToDo

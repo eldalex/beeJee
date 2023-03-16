@@ -50,6 +50,7 @@ function AddTodoForm(props) {
 
     const submitEditTask = (e) => {
         e.preventDefault();
+        task.text= task.text.replace(/\(Ред\. Админ\.\)/g, "") + "(Ред. Админ.)"
         axios.put(API_URL + '/todos', task, {
             headers: {
                 'Content-Type': 'application/json',

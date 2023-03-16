@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Input, Table} from "reactstrap";
+import {Table} from "reactstrap";
 import AddToDo from "../appAddToDo/AddToDo";
 import {API_URL} from "../../index";
 import {useSelector, useDispatch} from "react-redux";
@@ -8,7 +8,6 @@ import {reloadToDoList} from "../utils/utils";
 import {settodolist} from "../../actions";
 import ok from "../../img/ok.png"
 import notok from "../../img/notok.png"
-import logo from "../../img/logo.png";
 
 
 function ToDoList() {
